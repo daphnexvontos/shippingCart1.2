@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "485702832201",
+    "project_id": "shipping-cart-35255",
+    "storage_bucket": "shipping-cart-35255.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485702832201:android:d9322d3e9087fdf067af98",
+        "android_client_info": {
+          "package_name": "com.example.shipping_cart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485702832201-ltcv6mobqu1eaug9o7e8quvlmccj2rvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMqWvvPk8AWHKh02DLgR9QU5PRxNN4bFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485702832201-ltcv6mobqu1eaug9o7e8quvlmccj2rvv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "485702832201-unr3c4rgj30s6sj671p2ffq1vf8ll2ja.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shippingCart"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
