@@ -57,7 +57,7 @@ class _ItemPageState extends State<ItemPage> {
     seller: 'test',
     shippingMethodBool: [false, false],
   );
-  var address = [Address(name: 'test', address: 'test', phoneNo: '0', id: '0')];
+  var address = [Address(name: 'test', address: 'test', phoneNo: '0', city: 'test', state: 'test', postal: '', id: '0')];
   var name = [];
   var addressArr = [];
   var addressLength = 0;
@@ -72,6 +72,9 @@ class _ItemPageState extends State<ItemPage> {
   var addressId = [];
   var status;
   var accountNo;
+  var city = [];
+  var state = [];
+  var postal = [];
 
   @override
   void initState() {
@@ -113,6 +116,9 @@ class _ItemPageState extends State<ItemPage> {
           name.add(docSnapshot.data()['Name']);
           phone.add(docSnapshot.data()['Phone No']);
           addressArr.add(docSnapshot.data()['Address']);
+          city.add(docSnapshot.data()['city']);
+          state.add(docSnapshot.data()['state']);
+          postal.add(docSnapshot.data()['postal']);
           addressId.add(docSnapshot.id);
         });
       }
@@ -126,6 +132,9 @@ class _ItemPageState extends State<ItemPage> {
             name: name[i].toString(),
             address: addressArr[i].toString(),
             phoneNo: phone[i].toString(),
+            city: city[i].toString(),
+            state: state[i].toString(),
+            postal: postal[i].toString(),
             id: addressId[i].toString()));
       }
       // CheckBoxState(title: orderArr[i]['isChecked'].toString());
@@ -293,6 +302,9 @@ class _ItemPageState extends State<ItemPage> {
         name: 'test',
         address: 'test',
         phoneNo: '0',
+        city: 'test',
+        state: 'test',
+        postal: 'test',
         id: '0',
       )
     ];

@@ -896,57 +896,74 @@ class _CartPageState extends State<CartPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         // Status
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 75,
-                                child: Text(
-                                  'To',
+                         Container(
+                            height: 120,
+                            width: 70,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  'ON THE WAY\nTO WH',
                                   textAlign: TextAlign.center,
+                                  maxFontSize: 8,
+                                  minFontSize: 7,
+                                  maxLines: 3,
                                 ),
-                              ),
-                              Container(
-                                width: 75,
-                                child: Text(
-                                  'receive',
-                                  textAlign: TextAlign.center,
+                                SizedBox(height: 3),
+                                // Preparing Image
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  child: Container(
+                                    height: 80,
+                                    width: 70,
+                                    child: Image.asset('assets/images/shipment.png',
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                              ),
-                              // Image
-                              Container(
-                                height: 70,
-                                child: Image.asset('assets/images/shipment.png',
-                                    fit: BoxFit.cover),
-                              ),
-                            ]),
+                              ],
+                            )),
                         SizedBox(width: 5),
+
+                        // Divider
                         Column(
                           children: [
                             Container(
-                              height: 140.0,
+                              height: 120.0,
                               width: 5.0,
                               color: Colors.grey,
                             )
                           ],
                         ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 230,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                Text(order.title),
-                              ]),
-                              SizedBox(height: 10),
-                              Text(
-                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA'),
-                            ],
-                          ),
-                        )
+                        SizedBox(width: 5),
+
+                        // Column 2
+                        Column(
+                          children: [
+                          Container(
+                            width: 220,
+                            height: 110,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  AutoSizeText(order.title,
+                                      maxFontSize: 12,
+                                      minFontSize: 10,
+                                      maxLines: 1),
+                                ]),
+                                Expanded(child: Container()),
+                                AutoSizeText(
+                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA',
+                                  maxFontSize: 15,
+                                  minFontSize: 11,
+                                  maxLines: 4,
+                                ),
+                              ],
+                            ),
+                          )
+                        ])
                       ],
                     )),
               ),
@@ -1059,57 +1076,74 @@ class _CartPageState extends State<CartPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         // Status
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 75,
-                                child: Text(
-                                  'Received',
+                        Container(
+                            height: 120,
+                            width: 70,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  'RECEIVED\nBY WH',
                                   textAlign: TextAlign.center,
+                                  maxFontSize: 8,
+                                  minFontSize: 7,
+                                  maxLines: 3,
                                 ),
-                              ),
-                              Container(
-                                width: 75,
-                                child: Text(
-                                  'By WH',
-                                  textAlign: TextAlign.center,
+                                SizedBox(height: 3),
+                                // Preparing Image
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  child: Container(
+                                    height: 80,
+                                    width: 70,
+                                    child: Image.asset('assets/images/shipment.png',
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                              ),
-                              // Image
-                              Container(
-                                height: 70,
-                                child: Image.asset('assets/images/shipment.png',
-                                    fit: BoxFit.cover),
-                              ),
-                            ]),
+                              ],
+                            )),
                         SizedBox(width: 5),
+
+                        // Divider
                         Column(
                           children: [
                             Container(
-                              height: 140.0,
+                              height: 120.0,
                               width: 5.0,
                               color: Colors.grey,
                             )
                           ],
                         ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 230,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                Text(receivedOrder.title),
-                              ]),
-                              SizedBox(height: 10),
-                              Text(
-                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA'),
-                            ],
-                          ),
-                        )
+                        SizedBox(width: 5),
+
+                        // Column 2
+                        Column(
+                          children: [
+                          Container(
+                            width: 220,
+                            height: 110,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  AutoSizeText(receivedOrder.title,
+                                      maxFontSize: 12,
+                                      minFontSize: 10,
+                                      maxLines: 1),
+                                ]),
+                                Expanded(child: Container()),
+                                AutoSizeText(
+                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA',
+                                  maxFontSize: 15,
+                                  minFontSize: 11,
+                                  maxLines: 4,
+                                ),
+                              ],
+                            ),
+                          )
+                        ])
                       ],
                     )),
               ),
@@ -1264,17 +1298,14 @@ class _CartPageState extends State<CartPage> {
                                   SizedBox(height: 5),
                                   // package value
                                   Row(children: [
-                                    Container(
-                                      width: 170,
-                                      child: AutoSizeText(
+                                     AutoSizeText(
                                         'Package Value : \$${checkbox.itemValue}',
                                         maxFontSize: 15,
                                         minFontSize: 11,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                    SizedBox(width: 3),
+                                    SizedBox(width: 5),
                                     ElevatedButton(
                                       onPressed: () {
                                         Navigator.of(context).push(
@@ -1303,7 +1334,7 @@ class _CartPageState extends State<CartPage> {
                                           padding: EdgeInsets.all(0),
                                           tapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
-                                          minimumSize: const Size(75, 25),
+                                          minimumSize: const Size(65, 25),
                                           backgroundColor:
                                               Theme.of(context).primaryColor,
                                           foregroundColor: Colors.white,

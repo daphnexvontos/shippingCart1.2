@@ -162,10 +162,8 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
           // Date Checkout
           int tsCheckout =
               docSnapshot.data()['dateCheckout'].millisecondsSinceEpoch;
-          print(tsCheckout);
           DateTime tsdateCheckout =
               DateTime.fromMillisecondsSinceEpoch(tsCheckout);
-          print(tsdateCheckout);
           String dateTimeCheckout = tsdateCheckout.year.toString() +
               "/" +
               tsdateCheckout.month.toString() +
@@ -276,10 +274,10 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
           // Date Checkout
           int tsCheckout =
               docSnapshot.data()['dateCheckout'].millisecondsSinceEpoch;
-          print(tsCheckout);
+          // print('checkout: $tsCheckout');
           DateTime tsdateCheckout =
               DateTime.fromMillisecondsSinceEpoch(tsCheckout);
-          print(tsdateCheckout);
+          print('checkout: $tsdateCheckout');
           String dateTimeCheckout = tsdateCheckout.year.toString() +
               "/" +
               tsdateCheckout.month.toString() +
@@ -290,9 +288,8 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
 
           // Date Delivered
           int tsDel = docSnapshot.data()['etdSydney'].millisecondsSinceEpoch;
-          print(tsDel);
           DateTime tsdateDel = DateTime.fromMillisecondsSinceEpoch(tsDel);
-          print(tsdateDel);
+          print('delivery: $tsdateDel');
           String dateTimeDel = tsdateDel.year.toString() +
               "/" +
               tsdateDel.month.toString() +
@@ -369,6 +366,7 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
           notes: onItsWayArr[i]['notes']));
     }
     setState(() {
+      print('on its way: $onItsWay');
       onItsWay.removeAt(0);
     });
     return orderArray;
@@ -454,7 +452,6 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
 
       // Delivery Date
       var deliveryDate = dateDel[i];
-      print(deliveryDate);
 
       orderArray.add(deliveredArr[i].toString());
 
@@ -462,7 +459,6 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
       var daysExcessDel = 0.0;
       if (difference.inDays > 30) {
         daysExcessDel += ((daysInStorage[i] - 30) / 7).ceil().toDouble();
-        print('excess: $daysExcessDel'); //in weeks
 
         setState(() {
           storageFeeArrDel.add(daysExcessDel * 5);
@@ -674,96 +670,113 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
   }
 
   Widget buildPreparing(Shipment order) => GestureDetector(
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.shade400,
-                      spreadRadius: .1,
-                      blurRadius: 15,
-                      offset: const Offset(-5, 5)),
-                ],
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+      child: SizedBox(
+        child: Container(
+          width: double.maxFinite,
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.shade400,
+                        spreadRadius: .1,
+                        blurRadius: 15,
+                        offset: const Offset(-5, 5)),
+                  ],
                 ),
-                child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        // Status
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          // Status
+                          Container(
+                              height: 120,
+                              width: 70,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  AutoSizeText(
+                                    'PREPARING FOR SHIPMENT',
+                                    textAlign: TextAlign.center,
+                                    maxFontSize: 8,
+                                    minFontSize: 7,
+                                    maxLines: 3,
+                                  ),
+                                  SizedBox(height: 3),
+                                  // Preparing Image
+                                  ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    child: Container(
+                                      height: 80,
+                                      width: 70,
+                                      child: Image.network(order.image,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                ],
+                              )),
+
+                          SizedBox(width: 5),
+
+                          // Divider
+                          Column(
                             children: [
                               Container(
-                                width: 75,
-                                child: AutoSizeText(
-                                  'PREPARING FOR SHIPMENT',
-                                  textAlign: TextAlign.center,
-                                  maxFontSize: 9,
-                                  minFontSize: 8,
-                                  maxLines: 3,
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              // Preparing Image
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                child: Container(
-                                  height: 80,
-                                  width: 70,
-                                  child: Image.network(order.image,
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                            ]),
-                        SizedBox(width: 5),
-
-                        // Divider
-                        Column(
-                          children: [
-                            Container(
-                              height: 140.0,
-                              width: 5.0,
-                              color: Colors.grey,
-                            )
-                          ],
-                        ),
-
-                        // Column 2
-                        SizedBox(width: 10),
-                        Container(
-                          width: 230,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                Text(order.title),
-                              ]),
-                              SizedBox(height: 10),
-                              Text(
-                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA'),
-                              SizedBox(height: 10),
-                              Text(
-                                  'Estimated delivery date: ${order.estDelivery}',
-                                  style: TextStyle(color: Colors.red)),
+                                height: 120.0,
+                                width: 5.0,
+                                color: Colors.grey,
+                              )
                             ],
                           ),
-                        )
-                      ],
-                    )),
+                          SizedBox(width: 5),
+
+                          // Column 2
+                          Column(children: [
+                            Container(
+                              width: 220,
+                              height: 110,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(children: [
+                                    AutoSizeText(order.title,
+                                        maxFontSize: 12,
+                                        minFontSize: 10,
+                                        maxLines: 1),
+                                  ]),
+                                  Expanded(child: Container()),
+                                  AutoSizeText(
+                                    '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA',
+                                    maxFontSize: 15,
+                                    minFontSize: 11,
+                                    maxLines: 4,
+                                  ),
+                                  Expanded(child: Container()),
+                                  AutoSizeText(
+                                      'Estimated delivery date: ${order.estDelivery}',
+                                      maxFontSize: 12,
+                                      minFontSize: 10,
+                                      maxLines: 1,
+                                      style: TextStyle(color: Colors.red)),
+                                ],
+                              ),
+                            )
+                          ])
+                        ],
+                      )),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       onTap: () {
@@ -804,61 +817,81 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         // Status
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  width: 75,
-                                  child: AutoSizeText(
-                                    'ON ITS WAY',
-                                    textAlign: TextAlign.center,
-                                    maxFontSize: 14,
-                                    minFontSize: 12,
-                                    maxLines: 2,
-                                  )),
-                              SizedBox(height: 10),
-                              // On Its Way Image
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                child: Container(
-                                  height: 80,
-                                  width: 70,
-                                  child: Image.network(orderOnItsWay.image,
-                                      fit: BoxFit.cover),
+                        Container(
+                            height: 120,
+                            width: 70,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  'ON ITS WAY',
+                                  textAlign: TextAlign.center,
+                                  maxFontSize: 8,
+                                  minFontSize: 7,
+                                  maxLines: 3,
                                 ),
-                              ),
-                            ]),
+                                SizedBox(height: 3),
+                                // Preparing Image
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  child: Container(
+                                    height: 80,
+                                    width: 70,
+                                    child: Image.network(orderOnItsWay.image,
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ],
+                            )),
                         SizedBox(width: 5),
+
+                        // Divider
                         Column(
                           children: [
                             Container(
-                              height: 140.0,
+                              height: 120.0,
                               width: 5.0,
                               color: Colors.grey,
                             )
                           ],
                         ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 230,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(orderOnItsWay.title),
-                              const SizedBox(width: 8),
-                              SizedBox(height: 10),
-                              Text(
-                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA'),
-                              SizedBox(height: 10),
-                              Text(
-                                  'Estimated delivery date: ${orderOnItsWay.estDelivery}',
-                                  style: TextStyle(color: Colors.red)),
-                            ],
-                          ),
-                        ),
+                        SizedBox(width: 5),
+
+                        // Column 2
+                        Column(
+                          children: [
+                          Container(
+                            width: 220,
+                            height: 110,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  AutoSizeText(orderOnItsWay.title,
+                                      maxFontSize: 12,
+                                      minFontSize: 10,
+                                      maxLines: 1),
+                                ]),
+                                Expanded(child: Container()),
+                                AutoSizeText(
+                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA',
+                                  maxFontSize: 15,
+                                  minFontSize: 11,
+                                  maxLines: 4,
+                                ),
+                                Expanded(child: Container()),
+                                AutoSizeText(
+                                    'Estimated delivery date: ${orderOnItsWay.estDelivery}',
+                                    maxFontSize: 12,
+                                    minFontSize: 10,
+                                    maxLines: 1,
+                                    style: TextStyle(color: Colors.red)),
+                              ],
+                            ),
+                          )
+                        ])
                       ],
                     )),
               ),
@@ -904,63 +937,81 @@ class _ShipmentsPageState extends State<ShipmentsPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         // Status
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 75,
-                                child: AutoSizeText(
+                        Container(
+                            height: 120,
+                            width: 70,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
                                   'DELIVERED',
                                   textAlign: TextAlign.center,
-                                  maxFontSize: 14,
-                                  minFontSize: 10,
-                                  maxLines: 1,
+                                  maxFontSize: 8,
+                                  minFontSize: 7,
+                                  maxLines: 3,
                                 ),
-                              ),
-                              SizedBox(height: 3),
-                              // On Its Way Image
-                              ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                child: Container(
-                                  height: 80,
-                                  width: 70,
-                                  child: Image.network(orderDelivered.image,
-                                      fit: BoxFit.cover),
+                                SizedBox(height: 3),
+                                // Preparing Image
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  child: Container(
+                                    height: 80,
+                                    width: 70,
+                                    child: Image.network(orderDelivered.image,
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                              ),
-                            ]),
+                              ],
+                            )),
                         SizedBox(width: 5),
+                        
+                        // Divider
                         Column(
                           children: [
                             Container(
-                              height: 140.0,
+                              height: 120.0,
                               width: 5.0,
                               color: Colors.grey,
                             )
                           ],
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 5),
+
                         // Column 2
-                        Container(
-                          width: 230,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(orderDelivered.title),
-                              const SizedBox(width: 8),
-                              SizedBox(height: 10),
-                              Text(
-                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA'),
-                              SizedBox(height: 10),
-                              Text(
-                                  'Date delivered: ${orderDelivered.estDelivery}',
-                                  style: TextStyle(color: Colors.red)),
-                            ],
-                          ),
-                        ),
+                        Column(
+                          children: [
+                          Container(
+                            width: 220,
+                            height: 110,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  AutoSizeText(orderDelivered.title,
+                                      maxFontSize: 12,
+                                      minFontSize: 10,
+                                      maxLines: 1),
+                                ]),
+                                Expanded(child: Container()),
+                                AutoSizeText(
+                                  '$accountNo 2nd Floor, DSV Solutions Ninoy Aquino Ave, Bgy Sto. Niño, Parañaque City, 1704 Metro Manila\nPhone: TBA',
+                                  maxFontSize: 15,
+                                  minFontSize: 11,
+                                  maxLines: 4,
+                                ),
+                                Expanded(child: Container()),
+                                AutoSizeText(
+                                    'Estimated delivery date: ${orderDelivered.estDelivery}',
+                                    maxFontSize: 12,
+                                    minFontSize: 10,
+                                    maxLines: 1,
+                                    style: TextStyle(color: Colors.red)),
+                              ],
+                            ),
+                          )
+                        ])
                       ],
                     )),
               ),

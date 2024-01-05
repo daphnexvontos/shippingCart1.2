@@ -209,7 +209,7 @@ class _NewOrderPageState extends State<NewOrderPage> {
                                       addOrder(
                                           itemTrackingNumberController.text,
                                           itemInvoiceValueController.text,
-                                          notesController.text,
+                                          notesController.text.length > 0? notesController.text: '-',
                                           newOrderBool);
                                     } catch (error) {
                                       print(error);

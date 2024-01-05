@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shipping_cart/pages/shipments_page.dart';
@@ -30,8 +31,10 @@ class NavigationMenu extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Stack(
         children: [
-          Obx(() => NavigationBar(
-                height: 70,
+          Obx(() => 
+          
+          NavigationBar(
+                height: Platform.isIOS ? 50:70,
                 backgroundColor: Theme.of(context).primaryColor,
                 elevation: 0,
                 selectedIndex: controller.selectedIndex.value,
@@ -80,7 +83,7 @@ class NavigationMenu extends StatelessWidget {
                 ],
               )),
           Positioned(
-            bottom: 10,
+            bottom: Platform.isIOS ? 25:10,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,

@@ -85,7 +85,6 @@ class _LandingPageState extends State<LandingPage> {
   void initState() {
     super.initState();
     _getAccount();
-   
   }
 
   @override
@@ -161,13 +160,15 @@ class _LandingPageState extends State<LandingPage> {
           setState(() {
             shipmentsArr.add(docSnapshot.id);
             // Show package no if 'on its way' or 'delivered'
-            docSnapshot.data()['status'] == 'For Departed' || 
-            docSnapshot.data()['status'] == 'Departed' || 
-            docSnapshot.data()['status'] == 'Arrived' || 
-            docSnapshot.data()['status'] == 'Warehouse Received' || 
-            docSnapshot.data()['status'] == 'For Delivery' || 
-            docSnapshot.data()['status'] == 'Done' &&  docSnapshot.data().containsKey('sdeliveredDate')  ? 
-            shipmentsPackageArr.add(docSnapshot.data()['packageNumber']) : shipmentsPackageArr.add(''); 
+            docSnapshot.data()['status'] == 'For Departed' ||
+                    docSnapshot.data()['status'] == 'Departed' ||
+                    docSnapshot.data()['status'] == 'Arrived' ||
+                    docSnapshot.data()['status'] == 'Warehouse Received' ||
+                    docSnapshot.data()['status'] == 'For Delivery' ||
+                    docSnapshot.data()['status'] == 'Done' &&
+                        docSnapshot.data().containsKey('sdeliveredDate')
+                ? shipmentsPackageArr.add(docSnapshot.data()['packageNumber'])
+                : shipmentsPackageArr.add('');
             shipmentsValueArr.add(docSnapshot.data()['invoiceValue']);
             shipmentsNotesArr.add(docSnapshot.data()['notes']);
             shipmentsBundleArr.add(docSnapshot.data()['bundleType']);
@@ -183,7 +184,7 @@ class _LandingPageState extends State<LandingPage> {
             });
           }
         } else {
-          
+          print('no shipments');
         }
       }
     });
@@ -214,7 +215,6 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   getShipmentImage() async {
-    print('proceed');
     final storageRef = FirebaseStorage.instance.ref();
     final ref = storageRef.child(
         'images/${shipmentsArr[shipmentsArr.length - 1].toString()}/${shipmentsArr[shipmentsArr.length - 1].toString()}_image_0.jpg');
@@ -544,53 +544,61 @@ class _LandingPageState extends State<LandingPage> {
                                             Container(
                                               width: 200,
                                               height: 110,
-                                              child:
-                                                  Column(
+                                              child: Column(
                                                 children: [
                                                   // Tracking No & Delivery Date
                                                   Row(children: [
                                                     // If preparing, show tracking no
                                                     shipmentsStatusArr[
-                                                                    shipmentsArr.length -
+                                                                    shipmentsArr
+                                                                            .length -
                                                                         1] ==
                                                                 'Pending Picking' ||
                                                             shipmentsStatusArr[
-                                                                    shipmentsArr.length -
+                                                                    shipmentsArr
+                                                                            .length -
                                                                         1] ==
                                                                 'Done Picking' ||
                                                             shipmentsStatusArr[
-                                                                    shipmentsArr.length -
+                                                                    shipmentsArr
+                                                                            .length -
                                                                         1] ==
                                                                 'Pending Packing' ||
                                                             shipmentsStatusArr[
-                                                                    shipmentsArr.length -
+                                                                    shipmentsArr
+                                                                            .length -
                                                                         1] ==
                                                                 'Done Packing' ||
                                                             shipmentsStatusArr[
-                                                                    shipmentsArr.length -
+                                                                    shipmentsArr
+                                                                            .length -
                                                                         1] ==
                                                                 'To Ship'
                                                         ? AutoSizeText(
-                                                      shipmentsArr[
-                                                          shipmentsArr.length -
-                                                              1],
-                                                      style: TextStyle(
-                                                          color: Colors.grey),
-                                                      maxFontSize: 12,
-                                                      minFontSize: 10,
-                                                      maxLines: 1,
-                                                    ) :
-                                                    // Else show package no
-                                                    AutoSizeText(
-                                                      shipmentsPackageArr[
-                                                          shipmentsArr.length -
-                                                              1],
-                                                      style: TextStyle(
-                                                          color: Colors.grey),
-                                                      maxFontSize: 12,
-                                                      minFontSize: 10,
-                                                      maxLines: 1,
-                                                    ),
+                                                            shipmentsArr[
+                                                                shipmentsArr
+                                                                        .length -
+                                                                    1],
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .grey),
+                                                            maxFontSize: 12,
+                                                            minFontSize: 10,
+                                                            maxLines: 1,
+                                                          )
+                                                        :
+                                                        // Else show package no
+                                                        AutoSizeText(
+                                                            shipmentsPackageArr[
+                                                                shipmentsArr
+                                                                        .length],
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .grey),
+                                                            maxFontSize: 12,
+                                                            minFontSize: 10,
+                                                            maxLines: 1,
+                                                          ),
                                                     Expanded(
                                                       child: Container(),
                                                     ),

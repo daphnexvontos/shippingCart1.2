@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 import '../common/theme_helper.dart';
 import '../models/warehouse_address.dart';
@@ -70,6 +71,47 @@ class _LandingPageState extends State<ContactPage> {
       flag: 'assets/images/united_kingdom_pin.png',
     ),
   ];
+
+  List<String> attachments = [];
+  bool isHTML = false;
+
+  final _recipientController = TextEditingController(
+    text: 'example@example.com',
+  );
+
+  final _subjectController = TextEditingController(text: 'The subject');
+
+  final _bodyController = TextEditingController(
+    text: 'Mail body.',
+  );
+
+  Future<void> send() async {
+    final Email email = Email(
+      body: "emailController.text",
+      subject: "Shipping Cart",
+      recipients: ["dyatco@gmail.com"],
+      attachmentPaths: attachments,
+      isHTML: isHTML,
+    );
+
+    String platformResponse;
+
+    try {
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      print(error);
+      platformResponse = error.toString();
+    }
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(platformResponse),
+      ),
+    );
+  }
 
   final email = FirebaseAuth.instance.currentUser!.email;
   final controller = PageController(initialPage: 1);
@@ -293,6 +335,7 @@ class _LandingPageState extends State<ContactPage> {
                         const SizedBox(height: 12.0),
                         ElevatedButton(
                           onPressed: () {
+                            send();
                             // send();
                           },
                           child: Row(
@@ -303,7 +346,7 @@ class _LandingPageState extends State<ContactPage> {
                               minimumSize: const Size.fromHeight(50),
                               backgroundColor: Theme.of(context).primaryColor,
                               foregroundColor: Colors.white,
-                              shape: StadiumBorder()),
+                              shape: StadiumBorder()),                                                    
                         ),
                         const SizedBox(height: 38.0),
                       ]))),

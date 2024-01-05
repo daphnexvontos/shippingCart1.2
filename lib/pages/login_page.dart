@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final db = FirebaseFirestore.instance;
   final double _headerHeight = 250;
   final Key _formKey = GlobalKey<FormState>();
 
@@ -31,26 +33,39 @@ class _LoginPageState extends State<LoginPage> {
     //   barrierDismissible: false,
     //   builder: (context) => Center(child: CircularProgressIndicator()),
     // );
+    await db.collection('users').get().then((querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        print(docSnapshot.data());
+        print(emailController.text);
+        // if duplicate, run signUserUp again
+        if (docSnapshot.data()["email"] == emailController.text) {
+          // try sign in
+          try {
+            print('logintrue');
+            FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
 
-    // try sign in
-    try {
-      print('logintrue');
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-
-      // pop loading circle
-      // Navigator.pop(context);
-      // navigate to landing page
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => NavigationMenu()));
-    } on FirebaseAuthException catch (e) {
-      // pop loading circle
-      // Navigator.pop(context);
-      // show error message
-      showErrorMessage(e.code);
-    }
+            // pop loading circle
+            // Navigator.pop(context);
+            // navigate to landing page
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NavigationMenu()));
+              
+          } on FirebaseAuthException catch (e) {
+            // pop loading circle
+            // Navigator.pop(context);
+            // show error message
+            showErrorMessage(e.code);
+          }
+          return emailController.text;
+        } else {
+          print('false');
+        }
+        // print(accountNo);
+      }
+    });
   }
 
 // error message to user
@@ -99,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       Container(
-                          padding: EdgeInsets.fromLTRB(20,0,20,5),
+                          padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
                           child: Row(
                             children: [
                               Expanded(

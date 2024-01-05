@@ -8,8 +8,11 @@ class DatabaseService {
     required String email,
     required String phoneNo,
     required String address1,
-    required String address2,
     required String password,
+    required String city,
+    required String state,
+    required String postal,
+    required String country
   }) async {
     try {
       CollectionReference users =
@@ -17,13 +20,17 @@ class DatabaseService {
       // Call the user's CollectionReference to add a new user
       await users.doc(accountNo).set({
         'accountNo': accountNo,
+        'Name': '$firstName $lastName',
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'phoneNo': phoneNo,
-        'address1': address1,
-        'address2': address2,
+        'phone No': phoneNo,
+        'Address': address1,
         'password': password,
+        'city': city,
+        'state': state,
+        'postal': postal,
+        'country': country
       });
       return 'success';
     } catch (e) {

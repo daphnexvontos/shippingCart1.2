@@ -23,6 +23,10 @@ class _ProfilePageState extends State<ProfilePage> {
   String lastName = '';
   String phone = '';
   String addressLine1 = '';
+  String suburb = '';
+  String city = '';
+  String state = '';
+  String code = '';
 
   // Get current user info
   final user = FirebaseAuth.instance.currentUser!;
@@ -36,10 +40,13 @@ class _ProfilePageState extends State<ProfilePage> {
           if (docSnapshot.data()["email"] == email) {
             setState(() {
               accountNo = docSnapshot.data()['accountNo'];
-              phone = docSnapshot.data()['phoneNo'];
+              phone = docSnapshot.data()['phone No'];
               firstName = docSnapshot.data()['firstName'];
               lastName = docSnapshot.data()['lastName'];
-              addressLine1 = docSnapshot.data()['address1'];
+              addressLine1 = docSnapshot.data()['Address'];
+              city = docSnapshot.data()['city'];
+              state = docSnapshot.data()['state'];
+              code = docSnapshot.data()['postal'];
             });
           }
         }
@@ -84,10 +91,12 @@ class _ProfilePageState extends State<ProfilePage> {
             actions: [
               // Notification Button
               IconButton(
-                onPressed: () {Navigator.push(
+                onPressed: () {
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const NotificationPage()));},
+                          builder: (context) => const NotificationPage()));
+                },
                 icon: Icon(Icons.notifications, size: 36),
               ),
               // Drawer Menu
@@ -186,41 +195,32 @@ class _ProfilePageState extends State<ProfilePage> {
                                               title: Text("Address"),
                                               subtitle: Text(addressLine1),
                                             ),
-                                            const ListTile(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 12,
-                                                      vertical: 4),
-                                              leading: Icon(Icons.apartment),
-                                              title: Text("Suburb"),
-                                              subtitle: Text("AU"),
-                                            ),
-                                            const ListTile(
+                                            ListTile(
                                               contentPadding:
                                                   EdgeInsets.symmetric(
                                                       horizontal: 12,
                                                       vertical: 4),
                                               leading: Icon(Icons.apartment),
                                               title: Text("City"),
-                                              subtitle: Text("AU"),
+                                              subtitle: Text(city),
                                             ),
-                                            const ListTile(
+                                            ListTile(
                                               contentPadding:
                                                   EdgeInsets.symmetric(
                                                       horizontal: 12,
                                                       vertical: 4),
                                               leading: Icon(Icons.apartment),
                                               title: Text("State"),
-                                              subtitle: Text("AU"),
+                                              subtitle: Text(state),
                                             ),
-                                            const ListTile(
+                                            ListTile(
                                               contentPadding:
                                                   EdgeInsets.symmetric(
                                                       horizontal: 12,
                                                       vertical: 4),
                                               leading: Icon(Icons.apartment),
                                               title: Text("Post Code"),
-                                              subtitle: Text("AU"),
+                                              subtitle: Text(code),
                                             ),
                                             ListTile(
                                               leading: Icon(Icons.email),
