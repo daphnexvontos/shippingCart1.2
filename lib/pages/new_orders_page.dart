@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 
 class NewOrderPage extends StatefulWidget {
   const NewOrderPage({super.key});
@@ -429,7 +428,7 @@ class _NewOrderPageState extends State<NewOrderPage> {
         Row(
           children: [
             const SizedBox(width: 65),
-            Text('(additional fee for special protection)')
+            Text('(add\'l fee for special protection)')
           ],
         )
       ],

@@ -195,6 +195,7 @@ class _LandingPageState extends State<LandingPage> {
       shipmentsDepartedArr.removeAt(0);
       shipmentsShipArr.removeAt(0);
       shipmentsDeliveredArr.removeAt(0);
+      shipmentsPackageArr.removeAt(0);
     });
 
     if (shipmentsStatusArr.length > 0) {
@@ -246,19 +247,6 @@ class _LandingPageState extends State<LandingPage> {
         )) ??
         false;
   }
-
-// // Routing
-//   void pageController(int index) {
-//     if (index == 0) {
-//       context.push('/');
-//     } else if (index == 1) {
-//       context.push('/shipments');
-//     } else if (index == 2) {
-//       context.push('/cart');
-//     } else if (index == 3) {
-//       context.push('/newOrder');
-//     }
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -591,7 +579,7 @@ class _LandingPageState extends State<LandingPage> {
                                                         AutoSizeText(
                                                             shipmentsPackageArr[
                                                                 shipmentsArr
-                                                                        .length],
+                                                                        .length - 1],
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .grey),
